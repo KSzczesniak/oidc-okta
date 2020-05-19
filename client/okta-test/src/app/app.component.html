@@ -4,7 +4,7 @@
       Okta Test App
     </a>
     <a class="btn btn-primary" *ngIf="!isAuthenticated" (click)="login()">Login</a>
-    <!-- <a id="profile-button" class="item" *ngIf="isAuthenticated" routerLink="/profile">Profile</a> -->
+    <a id="profile-button" class="btn btn-info" *ngIf="isAuthenticated" routerLink="/home">Home</a>
     <a class="btn btn-danger" id="logout-button" *ngIf="isAuthenticated" (click)="logout()">Logout</a>
   </div>
 </div>
