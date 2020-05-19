@@ -1,0 +1,76 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\hbvg38\\Desktop\\OIDC\\server\\OktaTest\\OktaTest\\OktaTest.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\hbvg38\\Desktop\\OIDC\\server\\OktaTest\\OktaTest\\OktaTest.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\hbvg38\\Desktop\\OIDC\\server\\OktaTest\\OktaTest\\OktaTest.csproj",
+        "projectName": "OktaTest",
+        "projectPath": "C:\\Users\\hbvg38\\Desktop\\OIDC\\server\\OktaTest\\OktaTest\\OktaTest.csproj",
+        "packagesPath": "C:\\Users\\hbvg38\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hbvg38\\Desktop\\OIDC\\server\\OktaTest\\OktaTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\hbvg38\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://de01tfsapp002:8080/tfs/Common_APT_CPS/_packaging/RM20_repository/nuget/v3/index.json": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://msi-cie.pkgs.visualstudio.com/_packaging/DM_Repository/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
