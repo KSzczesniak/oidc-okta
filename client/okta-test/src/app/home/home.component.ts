@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
 import { AuthUserInfoService } from '../auth-user-info.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,10 @@ import { AuthUserInfoService } from '../auth-user-info.service';
 })
 export class HomeComponent implements OnInit {
 
-
   constructor(
     private oktaAuth: OktaAuthService, 
-    private authUserInfoService: AuthUserInfoService) { }
+    private authUserInfoService: AuthUserInfoService,
+    private http: HttpClient) { }
 
   async ngOnInit() {
     const idT = await this.oktaAuth.getIdToken();
@@ -21,10 +22,23 @@ export class HomeComponent implements OnInit {
     this.authUserInfoService.getUserInfo().subscribe(userInfo => {
       const userClaims2 = userInfo;
       console.log(userClaims2)
+
     });
     console.log(idT);
     console.log(acT);
     console.log(userClaims)
   }
+
+  
+  onClick() {
+    console.log('request sent')
+    const res = this.http.get("https://localhost:44382/api/values").subscribe(res => console.log(res));
+  }
+  
+  onClick2() {
+    console.log('request sent')
+    const res = this.http.get("https://localhost:44382/api/values/new").subscribe(res => console.log(res));
+  }
+  
 
 }

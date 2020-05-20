@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace OktaTest.Controllers
@@ -11,18 +12,28 @@ namespace OktaTest.Controllers
     public class ValuesController : ControllerBase
     {
         // GET api/values
+        [Authorize(Policy = "CmsAdmin")]
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [Authorize]
+        [HttpGet("new")]
+        public ActionResult<IEnumerable<string>> Get3()
         {
-            return "value";
+            return HttpContext.User.Claims
+                .Select(c => $"{c.Type} - {c.Value}")
+                .ToList();
         }
+
+        //// GET api/values/5
+        //[HttpGet("{id}")]
+        //public ActionResult<string> Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST api/values
         [HttpPost]

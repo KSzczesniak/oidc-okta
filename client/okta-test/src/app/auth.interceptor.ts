@@ -17,6 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
       'http://localhost:1068/',  //flashcode
       'http://localhost:2137/',  //pcr-radio
       'http://localhost:1070/',  //administration
+      'https://localhost:44382',
       `${this.oktaAuth.getOktaConfig().issuer}/v1/userinfo`
     ];
     if (allowedOrigins.some(url => request.urlWithParams.includes(url))) {
