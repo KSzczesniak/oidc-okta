@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OktaAuthService } from '@okta/okta-angular';
-import { AuthUserInfoService } from '../auth-user-info.service';
+import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -11,15 +10,14 @@ import { HttpClient } from '@angular/common/http';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private oktaAuth: OktaAuthService, 
-    private authUserInfoService: AuthUserInfoService,
+    private authService: AuthService, 
     private http: HttpClient) { }
 
   async ngOnInit() {
-    const idT = await this.oktaAuth.getIdToken();
-    const acT = await this.oktaAuth.getAccessToken();
-    const userClaims = await this.oktaAuth.getUser();
-    this.authUserInfoService.getUserInfo().subscribe(userInfo => {
+    const idT = await this.authService.getIdToken();
+    const acT = await this.authService.getAccessToken();
+    const userClaims = await this.authService.getUser();
+    this.authService.getUserInfo().subscribe(userInfo => {
       const userClaims2 = userInfo;
       console.log(userClaims2)
 
