@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OktaAuthService } from '@okta/okta-angular';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,18 +8,19 @@ import { OktaAuthService } from '@okta/okta-angular';
 })
 export class AppComponent {
   title = 'okta-test';
+  isAuthenticated = false;
 
-  isAuthenticated: boolean;
-  constructor(public oktaAuth: OktaAuthService) {
-    this.oktaAuth.$authenticationState.subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
+  constructor(public authService: AuthService) {
+    this.authService.authenticationState$.subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
+    this.authService.isCmsAdminChanges$.subscribe
   }
   async ngOnInit() {
-    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+    this.isAuthenticated = this.authService.isAuthenticated;
   }
   login() {
-    this.oktaAuth.loginRedirect();
+    this.authService.loginRedirect();
   }
   logout() {
-    this.oktaAuth.logout();
+    this.authService.logout();
   }
 }

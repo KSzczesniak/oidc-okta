@@ -11,20 +11,20 @@ export class AuthService {
   isAuthenticated = false;
   userClaims: UserClaims;
   private subjects = {
-    'cms-admin': new BehaviorSubject(false),
-    'cms-user': new BehaviorSubject(false),
-    'depot-admin': new BehaviorSubject(false),
-    'depot-user': new BehaviorSubject(false),
-    'codeplug-requirement-admin': new BehaviorSubject(false),
-    'codeplug-requirement-user': new BehaviorSubject(false)
+    'cms-admins': new BehaviorSubject(false),
+    'cms-users': new BehaviorSubject(false),
+    'depot-admins': new BehaviorSubject(false),
+    'depot-users': new BehaviorSubject(false),
+    'codeplug-requirement-admins': new BehaviorSubject(false),
+    'codeplug-requirement-users': new BehaviorSubject(false)
   };
 
-  isCmsAdminChanges$ = this.subjects['cms-admin'].asObservable();
-  isCmsUserChanges$ = this.subjects['cms-user'].asObservable();
-  isDepotAdminChanges$ = this.subjects['depot-admin'].asObservable();
-  isDepotUserChanges$ = this.subjects['depot-user'].asObservable();
-  isCodeplugRequirementAdminChanges$ = this.subjects['codeplug-requirement-admin'].asObservable();
-  isCodeplugRequirementUserChanges$ = this.subjects['codeplug-requirement-user'].asObservable();
+  isCmsAdminChanges$ = this.subjects['cms-admins'].asObservable();
+  isCmsUserChanges$ = this.subjects['cms-users'].asObservable();
+  isDepotAdminChanges$ = this.subjects['depot-admins'].asObservable();
+  isDepotUserChanges$ = this.subjects['depot-users'].asObservable();
+  isCodeplugRequirementAdminChanges$ = this.subjects['codeplug-requirement-admins'].asObservable();
+  isCodeplugRequirementUserChanges$ = this.subjects['codeplug-requirement-users'].asObservable();
 
 
   constructor(private http: HttpClient, private oktaAuthService: OktaAuthService) {
@@ -60,7 +60,9 @@ export class AuthService {
       .filter(subject => subject.value)
       .forEach(subject => subject.next(false))
   }
-
+  get isAuhenticated(): boolean {
+    return this.isAuthenticated;
+  }
   // isAuthenticated(): Promise<boolean> {
   //   return this.oktaAuthService.isAuthenticated();
   // }

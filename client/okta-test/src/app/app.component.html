@@ -5,6 +5,10 @@
     </a>
     <a class="btn btn-primary" *ngIf="!isAuthenticated" (click)="login()">Login</a>
     <a id="profile-button" class="btn btn-info" *ngIf="isAuthenticated" routerLink="/home">Home</a>
+    <a id="profile-button" class="btn btn-info" *ngIf="isAuthenticated" routerLink="/home">Cms</a>
+    <a id="profile-button" class="btn btn-info" *ngIf="isAuthenticated" routerLink="/home">Cms Admin</a>
+    <a id="profile-button" class="btn btn-info" *ngIf="isAuthenticated" routerLink="/home">Depot</a>
+    <a id="profile-button" class="btn btn-info" *ngIf="isAuthenticated" routerLink="/home">Depot Admin</a>
     <a class="btn btn-danger" id="logout-button" *ngIf="isAuthenticated" (click)="logout()">Logout</a>
   </div>
 </div>
