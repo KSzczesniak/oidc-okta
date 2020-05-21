@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OktaAuthService, OktaConfig } from '@okta/okta-angular'
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http'
 import { UserClaims } from './userClaims.model';
 
@@ -8,43 +8,45 @@ import { UserClaims } from './userClaims.model';
   providedIn: 'root'
 })
 export class AuthService {
-  isAuthenticated = false;
   userClaims: UserClaims;
-  private subjects = {
-    'cms-admins': new BehaviorSubject(false),
-    'cms-users': new BehaviorSubject(false),
-    'depot-admins': new BehaviorSubject(false),
-    'depot-users': new BehaviorSubject(false),
-    'codeplug-requirement-admins': new BehaviorSubject(false),
-    'codeplug-requirement-users': new BehaviorSubject(false)
+  
+  private allowedFeatures = {
+    home: false,
+    depot: false,
+    depotAdministration: false,
+    codeplugRepository: false,
+    codeplugRequirement: false,
+    codeplugRequirementAdministration: false,
+    flashcodeManagement: false,
+    flashcodeManagementAdministration: false,
   };
 
-  isCmsAdminChanges$ = this.subjects['cms-admins'].asObservable();
-  isCmsUserChanges$ = this.subjects['cms-users'].asObservable();
-  isDepotAdminChanges$ = this.subjects['depot-admins'].asObservable();
-  isDepotUserChanges$ = this.subjects['depot-users'].asObservable();
-  isCodeplugRequirementAdminChanges$ = this.subjects['codeplug-requirement-admins'].asObservable();
-  isCodeplugRequirementUserChanges$ = this.subjects['codeplug-requirement-users'].asObservable();
+  private allowedFeaturesToUserGroup = {
+    depot: ['depot-users', 'depot-admins'],
+    depotAdministration: ['depot-admins'],
+    codeplugRepository: ['cms-users', 'cms-admins'],
+    codeplugRequirement: [''],
+    codeplugRequirementAdministration: [''],
+    flashcodeManagement: ['cms-users', 'cms-admins'],
+    flashcodeManagementAdministration: ['cms-admins']
+  };
 
+  private allowedFeaturesChangesSource = new BehaviorSubject(this.allowedFeatures);
+  allowedFeaturesChanges$ = this.allowedFeaturesChangesSource.asObservable();
 
-  constructor(private http: HttpClient, private oktaAuthService: OktaAuthService) {
-    this.oktaAuthService.$authenticationState.subscribe(async isAuthenticated => {
-      this.isAuthenticated = isAuthenticated;
-      if (!this.isAuthenticated) {
-        this.resetUserGroupMembership();
-        return;
-      }
+  constructor(private http: HttpClient, private oktaAuthService: OktaAuthService) {}
+
+  public async setAllowedFeatures(isAuthenticated: boolean) {
+    if (! isAuthenticated) {
+      Object.keys(this.allowedFeatures).forEach(f => this.allowedFeatures[f] = false);
+    } else {
+      this.allowedFeatures.home = true;
       this.userClaims = await this.getUser();
-      Object.entries(this.subjects).forEach(([k, v]) => {
-        if (this.isGroupMember(k) && !v.value) {
-          v.next(true);
-        }
-        else if (!this.isGroupMember(k) && v.value) {
-          v.next(false);
-        }
+      Object.entries(this.allowedFeaturesToUserGroup).forEach(([feature, groups]) => {
+        this.allowedFeatures[feature] = groups.some(g => this.isGroupMember(g))
       });
-      
-    })
+    }
+    this.allowedFeaturesChangesSource.next(this.allowedFeatures);
   }
 
   get authenticationState$ (): Observable<boolean> {
@@ -52,20 +54,16 @@ export class AuthService {
   }
 
   isGroupMember(groupName: string): boolean {
+    // console.log(groupName)
+    // console.log(this.userClaims?.groups)
     return this.userClaims?.groups?.some(g => g === groupName);
   }
 
-  private resetUserGroupMembership(): void {
-    Object.values(this.subjects)
-      .filter(subject => subject.value)
-      .forEach(subject => subject.next(false))
+  async isAuthenticated(): Promise<boolean> {
+    const isAuthenticated =  await this.oktaAuthService.isAuthenticated();
+    await this.setAllowedFeatures(isAuthenticated);
+    return isAuthenticated;
   }
-  get isAuhenticated(): boolean {
-    return this.isAuthenticated;
-  }
-  // isAuthenticated(): Promise<boolean> {
-  //   return this.oktaAuthService.isAuthenticated();
-  // }
 
   getAccessToken(): Promise<string | undefined> {
     return this.oktaAuthService.getAccessToken();
@@ -93,6 +91,7 @@ export class AuthService {
 
   getUserInfo(): Observable<UserClaims> {
     const url = `${this.oktaAuthService.getOktaConfig().issuer}/v1/userinfo`;
+    console.log('get info')
     return this.http.get<UserClaims>(url);
   }
 }

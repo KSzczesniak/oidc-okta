@@ -9,13 +9,16 @@ import { AuthService } from './auth.service';
 export class AppComponent {
   title = 'okta-test';
   isAuthenticated = false;
+  allowedFeatures: { [key: string]: boolean } = {};
 
-  constructor(public authService: AuthService) {
-    this.authService.authenticationState$.subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
-    this.authService.isCmsAdminChanges$.subscribe
-  }
+  constructor(public authService: AuthService) {}
+
   async ngOnInit() {
-    this.isAuthenticated = this.authService.isAuthenticated;
+    this.isAuthenticated = await this.authService.isAuthenticated();
+    this.authService.allowedFeaturesChanges$.subscribe(allowedFeatures => {
+      this.allowedFeatures = allowedFeatures;
+      console.log(allowedFeatures);
+    });
   }
   login() {
     this.authService.loginRedirect();
