@@ -13,6 +13,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { DepotComponent } from './depot/depot.component';
 import { AuthenticatedHomeComponent } from './authenticated-home/authenticated-home.component';
+import { CommonModule } from '@angular/common';
+import { HomeComponent } from './home/home.component';
 
 const config = {
   issuer: 'https://motorolasolutions38.okta.com/oauth2/default',
@@ -26,10 +28,12 @@ const config = {
   declarations: [
     AppComponent,
     DepotComponent,
+    HomeComponent,
     AuthenticatedHomeComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     HttpClientModule,
     OktaAuthModule,

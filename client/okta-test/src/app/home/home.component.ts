@@ -8,12 +8,16 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  isAuthenticated = false;
   constructor(
     private authService: AuthService, 
     private http: HttpClient) { }
 
   async ngOnInit() {
+    this.isAuthenticated = await this.authService.isAuthenticated();
+    if (!this.isAuthenticated) {
+      return;
+    }
     const idT = await this.authService.getIdToken();
     const acT = await this.authService.getAccessToken();
     const userClaims = await this.authService.getUser();

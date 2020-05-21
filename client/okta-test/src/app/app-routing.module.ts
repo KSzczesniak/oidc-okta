@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'implicit/callback',
     component: OktaCallbackComponent,
   },
+  {
+    path: '**',
+    redirectTo: 'home'
+  },
 ];
 
 

@@ -1,3 +1,5 @@
 <p>home works!</p>
+<div *ngIf="isAuthenticated">Authenticated</div>
+<div *ngIf="!isAuthenticated">Not Authenticated</div>
 <button class="btn btn-secondary" (click)="onClick()">Request</button>
 <button class="btn btn-secondary" (click)="onClick2()">Request2</button>
