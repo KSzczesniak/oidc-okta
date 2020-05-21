@@ -10,7 +10,9 @@ import {
   OKTA_CONFIG,
 } from '@okta/okta-angular';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AuthInterceptor } from './auth.interceptor';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { DepotComponent } from './depot/depot.component';
+import { AuthenticatedHomeComponent } from './authenticated-home/authenticated-home.component';
 
 const config = {
   issuer: 'https://motorolasolutions38.okta.com/oauth2/default',
@@ -22,7 +24,9 @@ const config = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DepotComponent,
+    AuthenticatedHomeComponent
   ],
   imports: [
     BrowserModule,
