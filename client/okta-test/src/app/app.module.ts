@@ -15,6 +15,8 @@ import { DepotComponent } from './depot/depot.component';
 import { AuthenticatedHomeComponent } from './authenticated-home/authenticated-home.component';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
+import { CodeplugRepositoryComponent } from './codeplug-repository/codeplug-repository.component';
+import { DepotAdminComponent } from './depot-admin/depot-admin.component';
 
 const config = {
   issuer: 'https://motorolasolutions38.okta.com/oauth2/default',
@@ -29,7 +31,9 @@ const config = {
     AppComponent,
     DepotComponent,
     HomeComponent,
-    AuthenticatedHomeComponent
+    AuthenticatedHomeComponent,
+    CodeplugRepositoryComponent,
+    DepotAdminComponent
   ],
   imports: [
     BrowserModule,

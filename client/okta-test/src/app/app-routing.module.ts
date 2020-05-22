@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthenticatedHomeComponent } from './authenticated-home/authenticated-home.component';
 import { DepotComponent } from './depot/depot.component';
+import { CodeplugRepositoryComponent } from './codeplug-repository/codeplug-repository.component';
+import { DepotAdminComponent } from './depot-admin/depot-admin.component';
 
 
 const routes: Routes = [
@@ -22,6 +24,18 @@ const routes: Routes = [
     component: DepotComponent,
     canActivate: [ AuthGuard ],
     data: {featureName: "depot"}
+  },
+  {
+    path: 'depot-admin',
+    component: DepotAdminComponent,
+    canActivate: [ AuthGuard ],
+    data: {featureName: "depotAdministration"}
+  },
+  {
+    path: 'codeplug-repository',
+    component: CodeplugRepositoryComponent,
+    canActivate: [ AuthGuard ],
+    data: {featureName: "codeplugRepository"}
   },
   {
     path: 'implicit/callback',
