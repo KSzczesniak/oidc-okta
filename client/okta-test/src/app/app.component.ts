@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth/auth.service';
+import { AllowedFeatures } from './allowed-features.model';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { AuthService } from './auth/auth.service';
 export class AppComponent {
   title = 'okta-test';
   isAuthenticated = false;
-  allowedFeatures: { [key: string]: boolean } = {};
+  allowedFeatures = new AllowedFeatures();
 
   constructor(public authService: AuthService) {}
 

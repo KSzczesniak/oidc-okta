@@ -3,6 +3,7 @@ import { OktaAuthService, OktaConfig } from '@okta/okta-angular'
 import { Observable, BehaviorSubject, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http'
 import { UserClaims } from '../userClaims.model';
+import { AllowedFeatures } from '../allowed-features.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,7 @@ import { UserClaims } from '../userClaims.model';
 export class AuthService {
   userClaims: UserClaims;
   
-  private allowedFeatures = {
-    depot: false,
-    depotAdministration: false,
-    codeplugRepository: false,
-    codeplugRequirement: false,
-    codeplugRequirementAdministration: false,
-    flashcodeManagement: false,
-    flashcodeManagementAdministration: false,
-  };
+  private allowedFeatures = new AllowedFeatures();
 
   private allowedFeaturesToUserGroup = {
     depot: ['depot-users', 'depot-admins'],
