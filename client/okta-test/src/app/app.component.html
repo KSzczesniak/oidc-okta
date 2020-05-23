@@ -3,12 +3,12 @@
     <a routerLink="/" class="header item">
       Okta Test App
     </a>
-    <a class="btn btn-primary" *ngIf="!isAuthenticated" (click)="login()">Login</a>
-    <a id="profile-button" class="btn btn-info" routerLink="/home">Home</a>
-    <a id="profile-button" class="btn btn-info" *ngIf="allowedFeatures.codeplugRepository" routerLink="/codeplug-repository">Cms</a>
-    <a id="profile-button" class="btn btn-info" *ngIf="isAuthenticated" routerLink="/authenticated-home">Cms Admin</a>
-    <a id="profile-button" class="btn btn-info" *ngIf="allowedFeatures.depot" routerLink="/depot">Depot</a>
-    <a id="profile-button" class="btn btn-info" *ngIf="allowedFeatures.depotAdministration" routerLink="/depot-admin">Depot Admin</a>
+    <a class="btn btn-primary m-1" *ngIf="!isAuthenticated" (click)="login()">Login</a>
+    <a id="profile-button" class="btn btn-info m-1" routerLink="/home">Home</a>
+    <a id="profile-button" class="btn btn-info m-1" *ngIf="isAuthenticated" routerLink="/authenticated-home">Authenticated Home</a>
+    <a id="profile-button" class="btn btn-info m-1" *ngIf="allowedFeatures.codeplugRepository" routerLink="/codeplug-repository">Codeplug Repository</a>
+    <a id="profile-button" class="btn btn-info m-1" *ngIf="allowedFeatures.depot" routerLink="/depot">Depot</a>
+    <a id="profile-button" class="btn btn-info m-1" *ngIf="allowedFeatures.depotAdministration" routerLink="/depot-admin">Depot Admin</a>
     <a class="btn btn-danger" id="logout-button" *ngIf="isAuthenticated" (click)="logout()">Logout</a>
   </div>
 </div>
